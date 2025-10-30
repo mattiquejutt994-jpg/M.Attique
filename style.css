@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --primary-glow: 0 0 10px #8b5cf6, 0 0 20px #a78bfa; /* Violet/Purple Glow */
+    --secondary-glow: 0 0 10px #38bdf8, 0 0 20px #7dd3fc; /* Cyan Glow */
+    --bg-color-light: #f3f4f6;
+    --bg-color-dark: #0a0a0a;
+    --text-color-light: #1f2937;
+    --text-color-dark: #f3f4f6;
+    --card-bg-dark: #1f2937;
+    --card-bg-light: #ffffff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* Light Mode Styling */
+body.light {
+    background-color: transparent; /* Make body transparent */
+    color: var(--text-color-light);
+}
+
+/* Dark Mode Styling */
+html.dark {
+    background-color: var(--bg-color-dark); /* Keep this for the base dark color */
+    color: var(--text-color-dark);
+}
+
+/* Custom Glowing/Futuristic Styles */
+.glowing-button {
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5); /* Primary color shadow */
+}
+.glowing-button:hover {
+    box-shadow: 0 0 15px #8b5cf6, 0 0 30px #a78bfa;
+    transform: translateY(-2px);
+}
+
+.glowing-icon-hover {
+    transition: all 0.3s ease;
+}
+.glowing-icon-hover:hover {
+    text-shadow: 0 0 5px #38bdf8, 0 0 10px #7dd3fc;
+    transform: scale(1.1);
+}
+
+/* --- ENHANCED: Skill Card Hover/Glow (More Lift/Scale) --- */
+.skill-card {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    will-change: transform, box-shadow;
+    transform-style: preserve-3d;
+}
+.skill-card:hover {
+    transform: translateY(-7px) scale(1.02); /* Increased lift and subtle scale */
+    box-shadow: 0 0 18px #38bdf8, 0 0 35px #7dd3fc; /* Stronger Cyan Glow on Hover */
+}
+.dark .skill-card:hover {
+     box-shadow: 0 0 18px #38bdf8, 0 0 35px #7dd3fc;
+}
+
+.skill-icon {
+    box-shadow: var(--secondary-glow);
+    transition: all 0.3s ease;
+}
+
+/* Skills Progress Bar Glow */
+.progress-bar {
+    background: linear-gradient(90deg, #8b5cf6, #38bdf8);
+    box-shadow: var(--primary-glow);
+    transition: width 1s ease-out;
+    border-radius: 9999px;
+}
+
+/* --- ENHANCED: Project Card Hover Effect (More 3D Movement + Shimmer) --- */
+.project-card {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform, box-shadow;
+    position: relative; /* For shimmer effect */
+    overflow: hidden; /* To contain the shimmer */
+}
+
+/* Shimmer Effect Pseudo-element */
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%; /* Start off-screen to the left */
+    width: 50%; /* Width of the shimmer itself */
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.4s ease-in-out;
+    pointer-events: none;
+    transform: skewX(-20deg); /* Tilt the shimmer for a slick look */
+}
+
+.project-card:hover::before {
+    left: 150%; /* Move across the card to the right */
+}
+
+.project-card:hover {
+    transform: perspective(1000px) rotateX(3deg) rotateY(-5deg) scale(1.03); /* More tilt, scale, and movement */
+    box-shadow: 0 0 20px #8b5cf6, 0 0 40px #a78bfa; /* Stronger Violet Glow on Hover */
+}
+.dark .project-card {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), var(--primary-glow);
+}
+.dark .project-card:hover {
+    box-shadow: 0 0 20px #8b5cf6, 0 0 40px #a78bfa; /* Stronger Violet Glow */
+}
+
+/* Three.js Canvas Container */
+#hero-canvas-container {
+    position: fixed; /* Changed from absolute to fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Send it to the very back */
+    opacity: 0.5; /* Adjusted opacity for better visibility */
+}
+
+/* Mobile Menu Styling */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.line {
+    width: 100%;
+    height: 3px;
+    background-color: currentColor;
+    transition: all 0.3s linear;
+    transform-origin: 1px;
+}
+
+.line.active:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.line.active:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+.line.active:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+/* Ensure smooth scrolling for navigation links */
+html {
+    scroll-behavior: smooth;
+}
+/* CSS Variables for glow effect */
+:root {
+    --primary-glow: 0 0 10px #8b5cf6, 0 0 20px #a78bfa; /* Violet/Purple Glow */
+}
+
+/* Progress bar ki styling aur glow effect */
+.progress-bar {
+    background: linear-gradient(90deg, #8b5cf6, #38bdf8);
+    box-shadow: var(--primary-glow);
+    transition: width 1s ease-out; /* Animation ke liye transition */
+    border-radius: 9999px; /* Is se bar ke corners gol hojate hain */
+}
+
+/* Phone Link Styling */
+.phone-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* space-x-2 */
+    font-size: 1.5rem; /* text-2xl */
+    line-height: 2rem;
+    font-weight: 600; /* font-semibold */
+    color: #1f2937; /* text-gray-800 */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Phone Icon Styling */
+.phone-icon {
+    width: 1.75rem; /* w-7 */
+    height: 1.75rem; /* h-7 */
+    color: #8b5cf6; /* text-violet-500 */
+}
+
+/* Phone Number Text Styling */
+.phone-number-text {
+    border-bottom-width: 2px;
+    border-color: #9ca3af; /* border-gray-400 */
+    padding-bottom: 0.25rem; /* pb-1 */
+    transition: border-color 0.3s ease;
+}
+
+/* Hover effect for the number text */
+.phone-link:hover .phone-number-text {
+    border-color: #8b5cf6; /* hover:border-violet-500 */
+}
+
+/* --- Dark Mode Styles --- */
+.dark .phone-link { color: #ffffff; }
+.dark .phone-icon { color: #22d3ee; }
+.dark .phone-number-text { border-color: #6b7280; }
+.dark .phone-link:hover .phone-number-text { border-color: #22d3ee; }

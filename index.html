@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Attique</title>
+    
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- LINK TO EXTERNAL CSS FILE -->
+    <link rel="stylesheet" href="style.css"> 
+    
+    <!-- Load Three.js for 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Load AOS for Scroll Animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Configure Tailwind to use light/dark mode based on the 'class' in the html tag -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+</head>
+<body class="light">
+
+    <!-- 3D Particle Canvas Container (Moved here for global background) -->
+    <div id="hero-canvas-container"></div>
+
+    <!-- 
+        ========================================
+        1. Navigation Bar (Mobile and Desktop)
+        ======================================== 
+    -->
+    <header class="sticky top-0 z-50 shadow-lg backdrop-blur-md bg-white/70 dark:bg-gray-900/70 transition-colors duration-500">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo/Name -->
+            <a href="#home" class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-violet-500 to-cyan-400 glowing-icon-hover" style="text-shadow: var(--primary-glow);">Muhammad Attique</a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-lg font-medium hover:text-violet-500 dark:text-gray-200 dark:hover:text-cyan-400 transition duration-300">Home</a>
+                <a href="#about" class="nav-link text-lg font-medium hover:text-violet-500 dark:text-gray-200 dark:hover:text-cyan-400 transition duration-300">About</a>
+                <a href="#skills" class="nav-link text-lg font-medium hover:text-violet-500 dark:text-gray-200 dark:hover:text-cyan-400 transition duration-300">Skills</a>
+                <a href="#projects" class="nav-link text-lg font-medium hover:text-violet-500 dark:text-gray-200 dark:hover:text-cyan-400 transition duration-300">Projects</a>
+                <a href="#contact" class="nav-link text-lg font-medium hover:text-violet-500 dark:text-gray-200 dark:hover:text-cyan-400 transition duration-300">Contact</a>
+            </div>
+
+            <!-- Theme Toggle & Mobile Menu Button -->
+            <div class="flex items-center space-x-4">
+                <!-- Theme Toggle Switch -->
+                <button id="theme-toggle" aria-label="Toggle Dark Mode" class="p-2 rounded-full text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <i id="sun-icon" data-lucide="sun" class="w-6 h-6"></i>
+                    <i id="moon-icon" data-lucide="moon" class="w-6 h-6 hidden"></i>
+                </button>
+                
+                <!-- Mobile Menu Button (Hamburger) -->
+                <button id="menu-button" class="md:hidden hamburger text-gray-800 dark:text-gray-200" aria-label="Toggle menu">
+                    <span class="line line-1"></span>
+                    <span class="line line-2"></span>
+                    <span class="line line-3"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-xl border-t border-gray-200 dark:border-gray-700">
+            <!-- Explicit text colors for better visibility in Dark Mode -->
+            <a href="#home" class="block px-4 py-3 text-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-violet-500/10 dark:hover:bg-cyan-400/10 transition duration-300">Home</a>
+            <a href="#about" class="block px-4 py-3 text-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-violet-500/10 dark:hover:bg-cyan-400/10 transition duration-300">About</a>
+            <a href="#skills" class="block px-4 py-3 text-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-violet-500/10 dark:hover:bg-cyan-400/10 transition duration-300">Skills</a>
+            <a href="#projects" class="block px-4 py-3 text-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-violet-500/10 dark:hover:bg-cyan-400/10 transition duration-300">Projects</a>
+            <a href="#contact" class="block px-4 py-3 text-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-violet-500/10 dark:hover:bg-cyan-400/10 transition duration-300">Contact</a>
+        </div>
+    </header>
+
+
+    <main>
+        <!-- 
+            ========================================
+            2. Home Section (Hero)
+            ======================================== 
+        -->
+        <section id="home" class="relative overflow-hidden min-h-screen flex items-center justify-center pt-24 pb-12 dark:bg-transparent bg-transparent transition-colors duration-500">
+            <!-- Hero Content -->
+            <div class="container mx-auto px-4 relative z-10 text-center" data-aos="fade-up" data-aos-duration="1000">
+                <p class="text-xl font-medium mb-4 text-violet-500 dark:text-cyan-400" data-aos="fade-up" data-aos-delay="200">Hello, I'm Attique</p>
+                
+                <h3 class="text-6xl sm:text-7xl lg:text-8xl font-black mb-6 leading-tight dark:text-white text-gray-900">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-cyan-400 dark:to-violet-500" style="text-shadow: var(--primary-glow);">
+                       Frontend Developer
+                    </span>
+                </h3>
+                
+                <p class="text-xl sm:text-2xl max-w-4xl mx-auto mb-10 text-gray-700 dark:text-gray-300" data-aos="fade-up" data-aos-delay="400">
+                    Building the future, one elegant line of code at a time. Specializing in highly optimized, animated, and scalable web applications.
+                </p>
+
+                <!-- Call to Action Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6" data-aos="fade-up" data-aos-delay="600">
+                    <a href="#projects" class="glowing-button inline-flex items-center justify-center px-8 py-3 text-lg font-semibold rounded-full bg-violet-600 text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-violet-300 dark:focus:ring-violet-800 transition duration-300">
+                        View Projects <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </a>
+                    <a href="#contact" class="glowing-button inline-flex items-center justify-center px-8 py-3 text-lg font-semibold rounded-full border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:focus:ring-cyan-700 transition duration-300">
+                        Get in Touch <i data-lucide="contact" class="w-5 h-5 ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="mt-12 flex justify-center space-x-6" data-aos="fade-up" data-aos-delay="800">
+                    <a href="https://github.com/mattiquejutt994-jpg" target="_blank" aria-label="GitHub" class="text-gray-700 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 glowing-icon-hover">
+                        <i data-lucide="github" class="w-8 h-8"></i>
+                    </a>
+                     <a href="https://www.linkedin.com/in/muhammad-attique-051467388?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="LinkedIn" class="text-gray-700 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 glowing-icon-hover">
+                        <i data-lucide="linkedin" class="w-8 h-8"></i>
+                    </a>
+                     <a href="mailto:attique@example.com" aria-label="Email" class="text-gray-700 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 glowing-icon-hover">
+                        <i data-lucide="instagram" class="w-8 h-8"></i>
+                    </a>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ========================================
+            3. About Section
+            ======================================== 
+        -->
+        <section id="about" class="py-20 lg:py-32 dark:bg-gray-800/80 bg-white/80 backdrop-blur-sm transition-colors duration-500">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16 dark:text-white text-gray-900" data-aos="fade-down">
+                    About <span class="text-violet-500 dark:text-cyan-400">Me</span>
+                </h2>
+
+                <div class="flex flex-col lg:flex-row items-center lg:space-x-12">
+                    <!-- Text Content -->
+                    <div class="lg:w-1/2 mb-10 lg:mb-0" data-aos="fade-right" data-aos-duration="1200">
+                        <p class="text-lg mb-6 dark:text-gray-300 text-gray-700">
+                            I'm Attique, A passionate and detail-oriented Frontend Developer skilled in crafting modern, responsive, and visually engaging web interfaces using HTML, CSS, and JavaScript. Experienced in building pixel-perfect layouts with smooth animations, interactive UI components, and clean, efficient code. Proficient in Bootstrap 5 framework to develop mobile-first, cross-browser-compatible websites that deliver seamless user experiences. Focused on performance optimization, responsive design, and maintaining the perfect balance between functionality and aesthetics to bring creative ideas to life on the web.
+                        </p>
+                        <p class="text-lg mb-6 dark:text-gray-300 text-gray-700">
+                           Experienced in implementing advanced 3D animations and smooth scrolling effects using GSAP, AOS, and modern animation libraries. Skilled at creating dynamic, visually immersive user experiences that bring websites to life with motion, interactivity, and seamless transitions.
+                        </p>
+                        <a href="#contact" class="glowing-button inline-flex items-center px-6 py-2 mt-4 text-md font-semibold rounded-full bg-cyan-500 text-gray-900 hover:bg-cyan-600 transition duration-300">
+                            Hire Me <i data-lucide="send" class="w-4 h-4 ml-2"></i>
+                        </a>
+                        
+                        <a href="Muhammad_Attique_Resume.pdf" class="glowing-button inline-flex items-center px-6 py-2 mt-4 text-md font-semibold rounded-full bg-cyan-500 text-gray-900 hover:bg-cyan-600 transition duration-300">
+                            Download Resume <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+
+                        </a>
+                    </div>
+                    
+                    <!-- Personal Image Placeholder -->
+                    <div class="lg:w-1/2 flex justify-center" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
+                        <!-- Replace the 'src' with your actual profile picture URL -->
+                        <div class="relative w-full max-w-sm rounded-full overflow-hidden shadow-2xl transition duration-500 border-8 border-violet-500 dark:border-cyan-400" style="box-shadow: var(--secondary-glow);">
+                            <img src="attique.jpg" 
+                                 alt="Attique's Profile Picture" 
+                                 class="w-full h-full object-cover transform transition duration-500 hover:scale-105"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/500x500/0a0a0a/ffffff?text=Attique+Image+Placeholder'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ========================================
+            4. Skills Section
+            ======================================== 
+        -->
+        <section id="skills" class="py-20 lg:py-32 dark:bg-gray-900/80 bg-gray-100/80 backdrop-blur-sm transition-colors duration-500">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16 dark:text-white text-gray-900" data-aos="fade-down">
+                    My Technical <span class="text-cyan-500 dark:text-violet-400">Skills</span>
+                </h2>
+
+                <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Skill: HTML -->
+                    <div class="skill-card p-6 rounded-xl dark:bg-gray-800 bg-white shadow-xl" data-aos="fade-up">
+                        <div class="flex items-center mb-4 space-x-4">
+                            <div class="p-3 rounded-full bg-violet-600/20 text-violet-500 skill-icon">
+                                <i data-lucide="code" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold dark:text-white">HTML</h3>
+                        </div>
+                        <p class="text-sm dark:text-gray-400 text-gray-600">Structuring the web with semantic and accessible markup.</p>
+
+                        <div class="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full">
+                            <!-- Asal Progress Bar (Iska width JavaScript se control hoga) -->
+                            <div id="progress-html" class="progress-bar h-2" style="width: 0%;"></div>
+                        </div>
+
+                        <!-- Progress Percentage Label -->
+                        <span class="mt-2 block text-right text-violet-500 font-bold" id="label-html">0%</span>
+                    </div>
+
+                    <!-- Skill: CSS -->
+                    <div class="skill-card p-6 rounded-xl dark:bg-gray-800 bg-white shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center mb-4 space-x-4">
+                            <div class="p-3 rounded-full bg-cyan-600/20 text-cyan-500 skill-icon">
+                                <i data-lucide="paintbrush" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold dark:text-white">CSS & Preprocessors</h3>
+                        </div>
+                        <p class="text-sm dark:text-gray-400 text-gray-600">Creating beautiful, responsive layouts. Proficient in Bootstrap 5.</p>
+
+                         <div class="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full">
+                            <!-- Asal Progress Bar (Iska width JavaScript se control hoga) -->
+                            <div id="progress-css" class="progress-bar h-2" style="width: 0%;"></div>
+                        </div>
+
+                        <!-- Progress Percentage Label -->
+                        <span class="mt-2 block text-right text-violet-500 font-bold" id="label-css">0%</span>
+                    </div>
+
+                    <!-- Skill: JavaScript -->
+                    <div class="skill-card p-6 rounded-xl dark:bg-gray-800 bg-white shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center mb-4 space-x-4">
+                            <div class="p-3 rounded-full bg-yellow-600/20 text-yellow-500 skill-icon" style="box-shadow: 0 0 10px #ca8a04, 0 0 20px #eab308;">
+                                <i data-lucide="zap" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold dark:text-white">JavaScript</h3>
+                        </div>
+                        <p class="text-sm dark:text-gray-400 text-gray-600">Building interactive and dynamic user experiences.</p>
+
+                         <div class="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full">
+                            <!-- Asal Progress Bar (Iska width JavaScript se control hoga) -->
+                            <div id="progress-javascript" class="progress-bar h-2" style="width: 0%;"></div>
+                        </div>
+
+                        <!-- Progress Percentage Label -->
+                        <span class="mt-2 block text-right text-violet-500 font-bold" id="label-javascript">0%</span>
+                    </div>
+
+                    <!-- Additional skills to be toggled -->
+                    <div class="skill-card p-6 rounded-xl dark:bg-gray-800 bg-white shadow-xl hidden more-skills" data-aos="fade-up" data-aos-delay="0">
+                        <div class="flex items-center mb-4 space-x-4">
+                            <div class="p-3 rounded-full bg-sky-600/20 text-sky-500 skill-icon" style="box-shadow: 0 0 10px #0284c7, 0 0 20px #0ea5e9;">
+                                <i data-lucide="layout-template" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold dark:text-white">Bootstrap 5</h3>
+                        </div>
+                        <p class="text-sm dark:text-gray-400 text-gray-600">Building responsive, mobile-first websites with the world's most popular CSS framework.</p>
+
+                         <div class="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full">
+                            <!-- Asal Progress Bar (Iska width JavaScript se control hoga) -->
+                            <div id="progress-bootstrap" class="progress-bar h-2" style="width: 0%;"></div>
+                        </div>
+
+                        <!-- Progress Percentage Label -->
+                        <span class="mt-2 block text-right text-violet-500 font-bold" id="label-bootstrap">0%</span>
+                    </div>
+                </div>
+
+                <!-- See More/Less Button -->
+                <div class="text-center mt-12" data-aos="fade-up">
+                    <button id="toggle-skills-btn" class="glowing-button inline-flex items-center justify-center px-8 py-3 text-lg font-semibold rounded-full border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:focus:ring-cyan-700 transition duration-300">
+                        <span id="toggle-skills-text">See More</span>
+                        <i id="toggle-skills-icon" data-lucide="chevron-down" class="w-5 h-5 ml-2 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ========================================
+            5. Projects Section (Enhanced Hover Effect with 3D Tilt and Shimmer)
+            ======================================== 
+        -->
+        <section id="projects" class="py-20 lg:py-32 dark:bg-gray-800/80 bg-white/80 backdrop-blur-sm transition-colors duration-500">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16 dark:text-white text-gray-900" data-aos="fade-down">
+                    Featured <span class="text-violet-500 dark:text-cyan-400">Projects</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="project-card p-6 rounded-xl dark:bg-gray-900 bg-gray-100 shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                        <div class="text-4xl mb-4 text-violet-500" style="text-shadow: var(--primary-glow);">
+                            <i data-lucide="list-todo" class="w-10 h-10"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Task Manager</h3>
+                        <p class="dark:text-gray-300 text-gray-700 mb-4">
+                           Task Manager Web App is a smart productivity tool that helps users create, organize, and track tasks efficiently with a clean and interactive web interface.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-sm font-medium">
+                            <span class="px-3 py-1 bg-violet-500/20 text-violet-500 rounded-full">Html</span>
+                            <span class="px-3 py-1 bg-violet-500/20 text-violet-500 rounded-full">Css</span>
+                            <span class="px-3 py-1 bg-violet-500/20 text-violet-500 rounded-full">JavaScript</span>
+                        </div>
+                        <a href="https://mattiquejutt994-jpg.github.io/task/" target="_blank" class="mt-4 inline-block text-cyan-400 font-semibold hover:underline transition duration-300">View Live <i data-lucide="external-link" class="w-4 h-4 inline-block ml-1"></i></a>
+
+                         <a href="https://github.com/mattiquejutt994-jpg" target="_blank" class="mt-4 inline-block text-violet-400 font-semibold hover:underline transition duration-300">View Code <i data-lucide="code" class="w-4 h-4 inline-block ml-1"></i></a>
+                    </div>
+                    
+                    <!-- Project Card 2 -->
+                    <div class="project-card p-6 rounded-xl dark:bg-gray-900 bg-gray-100 shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-4xl mb-4 text-cyan-500" style="text-shadow: var(--secondary-glow);">
+                            <i data-lucide="utensils" class="w-10 h-10"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 dark:text-white">FoodCornor|Fresh Organic Produce</h3>
+                        <p class="dark:text-gray-300 text-gray-700 mb-4">
+                            Fresh, Organic, and Delivered Hand-picked fruits and vegetables sourced from local farms. Eat clean, live green.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-sm font-medium">
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-500 rounded-full">Html</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-500 rounded-full">Css</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-500 rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-500 rounded-full">BootStrap 5</span>
+                        </div>
+                        <a href="https://mattiquejutt994-jpg.github.io/vegefoods/" target="_blank" class="mt-4 inline-block text-cyan-400 font-semibold hover:underline transition duration-300">View Live <i data-lucide="external-link" class="w-4 h-4 inline-block ml-1"></i></a>
+
+                        <a href="https://github.com/mattiquejutt994-jpg" target="_blank" class="mt-4 inline-block text-violet-400 font-semibold hover:underline transition duration-300">View Code <i data-lucide="code" class="w-4 h-4 inline-block ml-1"></i></a>
+                    </div>
+                    
+                    <!-- Project Card 3 -->
+                    <div class="project-card p-6 rounded-xl dark:bg-gray-900 bg-gray-100 shadow-xl" data-aos="fade-up" data-aos-delay="300">
+                        <div class="text-4xl mb-4 text-indigo-500" style="text-shadow: 0 0 10px #6366f1, 0 0 20px #818cf8;">
+                            <i data-lucide="briefcase" class="w-10 h-10"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Portfolio</h3>
+                        <p class="dark:text-gray-300 text-gray-700 mb-4">
+                            Building the future, one elegant line of code at a time. Specializing in highly optimized, animated, and scalable web applications.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-sm font-medium">
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full">Html</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full">Css</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full">BootStrap 5</span>
+                        </div>
+                        <a href="#" target="_blank" class="mt-4 inline-block text-cyan-400 font-semibold hover:underline transition duration-300">View Live <i data-lucide="external-link" class="w-4 h-4 inline-block ml-1"></i></a>
+                    </div>
+
+                     <!-- Project Card 4 -->
+                    <div class="project-card p-6 rounded-xl dark:bg-gray-900 bg-gray-100 shadow-xl hidden more-projects" data-aos="fade-up" data-aos-delay="0">
+                        <div class="text-4xl mb-4 text-indigo-500" style="text-shadow: 0 0 10px #6366f1, 0 0 20px #818cf8;">
+                            <i data-lucide="brain" class="w-10 h-10"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Final Year Project</h3>
+                        <p class="dark:text-gray-300 text-gray-700 mb-4">
+                            BotanyBot.AI is an AI-powered system that detects plant diseases from leaf images, helping ensure healthier and more productive crops.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-sm font-medium">
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full">Frontend</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full">Backebd</span>
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-500 rounded-full">AI</span>
+                        </div>
+                        <a  class="mt-4 inline-block text-cyan-400 font-semibold hover:underline transition duration-300">View Live <i data-lucide="external-link" class="w-4 h-4 inline-block ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- See More/Less Button for Projects -->
+                <div class="text-center mt-12" data-aos="fade-up">
+                    <button id="toggle-projects-btn" class="glowing-button inline-flex items-center justify-center px-8 py-3 text-lg font-semibold rounded-full border-2 border-violet-500 text-violet-500 hover:bg-violet-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-violet-300 dark:focus:ring-violet-800 transition duration-300">
+                        <span id="toggle-projects-text">See More</span>
+                        <i id="toggle-projects-icon" data-lucide="chevron-down" class="w-5 h-5 ml-2 transition-transform"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 
+            ========================================
+            6. Contact Section
+            ======================================== 
+        -->
+        <section id="contact" class="py-20 lg:py-32 dark:bg-gray-900/80 bg-gray-100/80 backdrop-blur-sm transition-colors duration-500">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16 dark:text-white text-gray-900" data-aos="fade-down">
+                    Let's <span class="text-cyan-500 dark:text-violet-400">Connect</span>
+                </h2>
+
+                <div class="max-w-3xl mx-auto dark:bg-gray-800 bg-white p-8 sm:p-12 rounded-xl shadow-2xl transition duration-500" data-aos="fade-up" data-aos-duration="1200">
+                    <form id="contact-form" action="https://formspree.io/f/xgvpzlea" method="POST" class="space-y-6">
+                        <!-- Name Field -->
+                        <div>
+                            <label for="name" class="block text-lg font-medium mb-2 dark:text-gray-200 text-gray-700">Your Name</label>
+                            <div class="relative">
+                                <i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500"></i>
+                                <input type="text" id="name" name="name" required
+                                       class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 dark:bg-gray-900 dark:text-white transition duration-300"
+                                       placeholder="Enter your name">
+                            </div>
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div>
+                            <label for="email" class="block text-lg font-medium mb-2 dark:text-gray-200 text-gray-700">Your Email</label>
+                            <div class="relative">
+                                <i data-lucide="at-sign" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500"></i>
+                                <input type="email" id="email" name="email" required
+                                       class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 dark:bg-gray-900 dark:text-white transition duration-300"
+                                       placeholder="Enter your email address">
+                            </div>
+                        </div>
+
+                        <!-- Message Field -->
+                        <div>
+                            <label for="message" class="block text-lg font-medium mb-2 dark:text-gray-200 text-gray-700">Message</label>
+                            <div class="relative">
+                                <i data-lucide="message-square" class="absolute left-3 top-4 w-5 h-5 text-gray-400 dark:text-gray-500"></i>
+                                <textarea id="message" name="message" rows="5" required
+                                          class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 dark:bg-gray-900 dark:text-white transition duration-300"
+                                          placeholder="How can I help you?"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Status Message Box -->
+                        <div id="form-status" class="hidden p-4 rounded-lg text-sm font-medium" role="alert"></div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="glowing-button w-full px-6 py-3 text-lg font-bold rounded-full bg-violet-600 text-white hover:bg-violet-700 transition duration-300">
+                            Send Message <i data-lucide="send" class="w-5 h-5 inline-block ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 
+            ========================================
+            7. Footer
+            ======================================== 
+        -->
+        <footer class="py-10 dark:bg-gray-900 bg-gray-200 transition-colors duration-500 border-t border-gray-300 dark:border-gray-700">
+            <div class="container mx-auto px-4 text-center">
+                <!-- Phone Number Contact Line -->
+                <div class="mb-8 flex justify-center">
+                    <a href="tel:+923001234567" 
+                       class="phone-link flex items-center space-x-2 text-2xl font-semibold text-gray-800 dark:text-white transition duration-300">
+                        
+                        <!-- Phone Icon -->
+                        <i data-lucide="phone" class="phone-icon w-7 h-7 text-violet-500 dark:text-cyan-400"></i>
+                        
+                        <!-- Phone Number with Underline Effect -->
+                        <span class="phone-number-text border-b-2 border-gray-400 dark:border-gray-500 hover:border-violet-500 dark:hover:border-cyan-400 transition duration-300 pb-1">
+                            +923213858815
+                        </span>
+                    </a>
+                </div>
+
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="https://github.com/mattiquejutt994-jpg" target="_blank" aria-label="GitHub" class="text-gray-700 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 glowing-icon-hover">
+                        <i data-lucide="github" class="w-8 h-8"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/muhammad-attique-051467388?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="LinkedIn" class="text-gray-700 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 glowing-icon-hover">
+                        <i data-lucide="linkedin" class="w-8 h-8"></i>
+                    </a>
+                   
+                    <a href="mailto:attique@example.com" aria-label="Email" class="text-gray-700 dark:text-gray-400 hover:text-cyan-400 dark:hover:text-cyan-400 glowing-icon-hover">
+                        <i data-lucide="instagram" class="w-8 h-8"></i>
+                    </a>
+                </div>
+                
+                <p id="copyright" class="text-sm dark:text-gray-400 text-gray-600">
+                    <!-- Year will be updated by JavaScript -->
+                </p>
+                <p class="text-xs mt-2 dark:text-gray-500 text-gray-500">
+                    Designed & Developed by Muhammad Attique 
+                </p>
+            </div>
+        </footer>
+
+
+    <!-- LINK TO EXTERNAL JAVASCRIPT FILE -->
+    <script src="script.js" defer></script> 
+    <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+
+    
+</body>
+</html>
