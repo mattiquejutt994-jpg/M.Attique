@@ -171,7 +171,7 @@ function setupPortfolio() {
     // --- Dynamic Copyright Year ---
     const currentYear = new Date().getFullYear();
     const copyrightElement = document.getElementById('copyright');
-    copyrightElement.innerHTML = `&copy; All Rights Reserved ${currentYear}`;
+    copyrightElement.innerHTML = `&copy; ${currentYear} Muhammad Attique | All Rights Reserved`;
 
 
     // --- Toggle More/Less Skills ---
@@ -334,3 +334,4 @@ const skillsSection = document.getElementById('skills');
 if (skillsSection) {
     observer.observe(skillsSection);
 };
+
