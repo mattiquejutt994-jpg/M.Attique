@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://mattiquejutt994-jpg.github.io/M.Attique/sitemap.xml
+
+Sitemap: https://mattiquejutt994-jpg.github.io/sitemap.xml
